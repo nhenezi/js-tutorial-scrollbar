@@ -1,3 +1,4 @@
-#content           {border: 1px solid red;}
-#scrollbar_wrapper {border: 1px solid blue;}
-#scrollbar         {border: 1px solid green;}
+#wrapper           {width: 200px; height: 150px;}
+#content           {background: grey; width:190px; height: 150px; overflow:hidden; float: left;}
+#scrollbar_wrapper {background: green; width: 10px; height: 100%; float: right;}
+#scrollbar         {background: black;}
