@@ -29,9 +29,6 @@ So structure you have looks something like this
     wccccccccccccccccccccccccccccccSSw
     wccccccccccccccccccccccccccccccSSw
     wccccccccccccccccccccccccccccccSSw
-    wccccccccccccccccccccccccccccccSSw
-    wccccccccccccccccccccccccccccccSSw
-    wccccccccccccccccccccccccccccccSSw
     wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
    
    
