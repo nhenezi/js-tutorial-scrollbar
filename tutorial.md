@@ -132,7 +132,7 @@ which means don't do anything to content, display it outside the box if box is t
  and test it). ```overflow: hidden``` says just clip content.
 [Mozilla developer network](https://developer.mozila.org) has excelent reference on css
 ([CSS Reference - MDN](https://developer.mozilla.org/en/DOM/CSS)), so make sure you open that and visit it
-everyhing something is unclear or unfamiliar. 
+everytime something is unclear or unfamiliar. 
 
 But what we actually did here is hide all extra content from ```#content``` and that's not exactly what we wanted.
 If you set 
@@ -142,6 +142,7 @@ If you set
 and use firebug to manipulate ```top```, you should see how we got the scrolling effect, but no extra content is
 displayed. That is because we clipped extra content from ```#content```. If you look back at picture, we could 
 (and we will) set ```overflow: hidden``` on wrapper and achieve same result, but extra content will be shown.
+**Clarify**
 
 Create a new .html file with same structure as above, but add another div, set its class name to "wrapper" 
 and place ```#content``` inside it. You structure should look like this:
@@ -272,7 +273,7 @@ We create a new element and then insert it before ```_config.content```. After t
 into ```_config.wrapper``` and make it same height as ```_config.content```. We need to add a little bit more to
 width because of scrollbar. Since we specified scrollbar width as 10px, we are adding 10 to that value.
 Good practice would be to add another option to config: scrollbar_width. Also, as you code line by line this part,
-```console.log(myScrollbar.getConfig()``` each line so you actualy see what is happening! Great, now 
+```console.log(myScrollbar.getConfig())``` each line so you actualy see what is happening! Great, now 
 all we need is scrollbar!
 
     ...
@@ -308,7 +309,7 @@ with ```float```)
 
 Refresh and there you are, basic structure is here! 
 So only thing that isn't in position right now is our scrollbar, so let's position it!
-I'm going to use ```size of wrapper * 1/3```  for scrollbar size because it looks nice 
+I'm going to use ```size of wrapper * 1/3```  for scrollbar size because it looks nice. 
 To do this, we add at the end of our ```start()``` function:
 
     //set size of scrollbar
@@ -324,7 +325,8 @@ You should see black scrollbar! Now something about ```style``` property. ```_co
 an object holding all css style properties of ```_config.scrollbar``` node.
 Unfortunately, they aren't exacly the same (even though the ware developed at same time); for example in
 css you define ```padding-left``` while in javascript you set that property by ```object.style.paddingLeft```.
-All (almost) style properties are strings, so make sure you send a string with measure (px, %, em,...) + does automatic
+All (almost) style properties are strings, so make sure you send a string with measure (px, %, em,...). ```+``` 
+operator does automatic
 type conversion in javascript and it's smart to include parenthesis around computation so 
 you don't get unexpected results (try to enter ```"ss" + 3 + 4``` in console).
 
