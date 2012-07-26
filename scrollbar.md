@@ -52,7 +52,7 @@ you have Webkit inspector and on Opera Dragonfly. On IE you can go and download 
 cover any developer tools here, but if you aren't familiar with them, google ```Webkit inspector/Firebug/Dragonfly tutorial``` and I'm sure you will find something!
 
 Lets begin by defining basic html structure:
-```html
+
     <!DOCTYPE html>
     <html>
     <head>
@@ -66,7 +66,7 @@ Lets begin by defining basic html structure:
     <script type="application/javascript" src="scrollbar.js"></script>
     </body>
     </html>
-```
+
 HTML is pretty self explanatory. ```#content``` holds scrollable data. Nothing else is needed.
 When we add data to ```#content```:
 
@@ -368,7 +368,7 @@ When we click down with a mouse we want to enable moving of scrollbar with movin
 mouse we want to stop moving. It makes sense?
 
 Now it's time to move out of our start() functions, so here is now all code combined: 
-```javascript
+
     function start(config) {
     
       config = config || {};
@@ -418,7 +418,6 @@ Now it's time to move out of our start() functions, so here is now all code comb
       }
 
     }
-```
 
 Let's move on to enableMoving function. How are we going to enable moving? We want to know if object is "movable" and
 we are going to add class "draggable" to that object. Right now, scrollbar is our object so we add "draggable"
