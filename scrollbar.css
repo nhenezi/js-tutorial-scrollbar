@@ -1,3 +1,4 @@
+.myScrollbar_wrapper{overflow: hidden; height:1000px; position:relative;}
 #content           {width:200px; height: 100px; float: left; position: relative;}
 .scrollbar_wrapper {background: green; width: 10px; height: 100%; float: right;}
 .scrollbar         {background: black; position: relative}
