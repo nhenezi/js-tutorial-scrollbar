@@ -36,6 +36,11 @@ var myScrollbar = (function() {
     _config.ratio = ((_config.wrapper.scrollHeight - _config.scrollbarW.offsetHeight) 
                      / (_config.scrollbarW.offsetHeight - _config.scrollbar.offsetHeight));
     
+    //ratio is caclulated this way: number of pixels you can to move in content
+    //                            / number if pixels you can move in scrollbar wrapper
+    //number of pixels you move in content is size of content - visible content
+    //number of pixels you move in scrollbar wrapper is size of scrollbar wrapper - size of scrollbar
+
     //define events
     _config.scrollbar.events = {
       "mousedown":  enableMoving,
@@ -51,10 +56,13 @@ var myScrollbar = (function() {
 
   }
   
-
   function enableMoving(e) {
     e.preventDefault();
     _config.scrollbar.className = "scrollbar draggable";
+
+    //starting position is set to middle of scrollbar, so when user grabs scrollbar, he grabs it by middle
+    // e.clientY - e.layerY = top side of scrollbar (event is activated when clicked on scrollbar)
+    // _config.scrollbar.offsetHeight * 1/2 = distance from top side of scrollbar to middle
     _config.scrollbar.startDrag =
       _config.scrollbar.startDrag || (e.clientY - e.layerY + _config.scrollbar.offsetHeight * 1/2);
   }
@@ -73,15 +81,18 @@ var myScrollbar = (function() {
         _config.scrollbar.top = 0;
       }
       //if we move to far to bottom
+      //we cannot move scrollbar for whole size of scrollbar wrapper, we are actually moving it from
+      //bottom part of scrollbar to bottom part of scrollbar wrapper
       else if (_config.scrollbar.top > _config.scrollbarW.offsetHeight - _config.scrollbar.offsetHeight){
         _config.scrollbar.top = _config.scrollbarW.offsetHeight - _config.scrollbar.offsetHeight;
       }
 
       _config.scrollbar.style.top = _config.scrollbar.top + "px";
+      //for every n pixel of movements in scrollbar we have to move _config.ration * n pixels in content
       _config.content.style.top = -(_config.scrollbar.top * _config.ratio) + "px";
     }
   }
-  
+
   function getConfig() {
     return _config;
   }
