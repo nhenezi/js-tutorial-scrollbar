@@ -1,4 +1,5 @@
-#wrapper           {width: 200px; height: 150px;}
-#content           {background: grey; width:190px; height: 150px; overflow:hidden; float: left;}
-#scrollbar_wrapper {background: green; width: 10px; height: 100%; float: right;}
-#scrollbar         {background: black;}
+.myScrollbar_wrapper{overflow: hidden; height:1000px; position:relative; top:130px;left:160px;}
+#content           {width:200px; height: 100px; float: left; position: relative;}
+.scrollbar_wrapper {background: green; width: 10px; height: 100%; float: right;}
+.scrollbar         {background: black; position: relative}
+
