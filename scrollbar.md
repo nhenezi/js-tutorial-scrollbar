@@ -52,7 +52,7 @@ you have Webkit inspector and on Opera Dragonfly. On IE you can go and download 
 cover any developer tools here, but if you aren't familiar with them, google ```Webkit inspector/Firebug/Dragonfly tutorial``` and I'm sure you will find something!
 
 Lets begin by defining basic html structure:
-
+```html
     <!DOCTYPE html>
     <html>
     <head>
@@ -66,7 +66,7 @@ Lets begin by defining basic html structure:
     <script type="application/javascript" src="scrollbar.js"></script>
     </body>
     </html>
-
+```
 HTML is pretty self explanatory. ```#content``` holds scrollable data. Nothing else is needed.
 When we add data to ```#content```:
 
