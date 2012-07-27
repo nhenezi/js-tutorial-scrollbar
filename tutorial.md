@@ -148,7 +148,7 @@ to keep global namespace clear as possible (google this and get informed about i
     var myScrollbar = (function() {
       //code
     })();
-```javascript
+```
 
 We want to allow some kind of customization to our scrollbar (for example, you might want to specify width or colors), so we define ```_config``` variable to hold configuration information and ```start()``` function to initialize and allow
 passing object which properties (ones we defined in ```_config```) will be copied to ```_config```.
@@ -281,7 +281,7 @@ so we assign some css properties to ```.scrollbar_wrapper```
 
 ```css
     .scrollbar_wrapper {background: green; width: 10px; height: 100%;}
-``
+```
 
 ```background: green``` is there so we can see what are we doing.```height: 100%``` is because we want to move
 scrollbar along whole height of wrapper (that is why we assigned height to ```_config.wrapper```).
@@ -422,7 +422,7 @@ a way to find this is ```(e.clientY - e.layerY + _config.scrollbar.offsetHeight 
 ```e.clientY - e.layerY``` is top edge of scrollbar, and we add half size of scrollbar so we have position of the middle. 
 Next time use that position to starDrag. Now we will allways drag scrollbar by middle.
 
-``javascript
+```javascript
     function enableMoving(e) {
       e.preventDefault();
       _config.scrollbar.className = "scrollbar draggable";
