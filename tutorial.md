@@ -36,62 +36,63 @@ you have Webkit inspector and on Opera Dragonfly. On IE you can go and download 
 cover any developer tools here, but if you aren't familiar with them, google ```Webkit inspector/Firebug/Dragonfly tutorial``` and I'm sure you will find something!
 
 Lets begin by defining basic html structure:
+
 ```html
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="utf8">
-      <link type="text/css" rel="stylesheet" href="scrollbar.css">
-      <title>Javscript Scrollbar tutorial</title>
-    </head>
-    <body>
-    <div id="content">
-    </div>
-    <script type="application/javascript" src="scrollbar.js"></script>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8">
+  <link type="text/css" rel="stylesheet" href="scrollbar.css">
+  <title>Javscript Scrollbar tutorial</title>
+</head>
+<body>
+  <div id="content">
+  </div>
+  <script type="application/javascript" src="scrollbar.js"></script>
+</body>
+</html>
 ```
 HTML is pretty self explanatory. ```#content``` holds scrollable data. Nothing else is needed.
 When we add data to ```#content``` (insert as many `<li> as you want:
 ```html
+...
+<div id="content">
+  <ol>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
     ...
-    <div id="content">
-      <ol>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        ...
-        ...
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-      </ol>
-    </div>
     ...
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+    <li>element</li>
+  </ol>
+</div>
+...
 ```
 we can see that ```#content``` extends and we really do not want that (we want it scrollable, right?).
 We can achieve that by adding: 
 
 ```css
-    #content {width: 200px; height: 150px; overflow: scroll;}
+#content {width: 200px; height: 150px; overflow: scroll;}
 ```
 
 but that's not exactly what we wanted. Hiding extra content (and we want to hide it, so we can code our own
 scrollbar) can be done with
 
 ```css
-    #content { ... overflow: hidden;}
+#content { ... overflow: hidden;}
 ```
 
 ```width``` and ```height``` are css properties which specify width and height of the content area of an element.
@@ -104,9 +105,9 @@ everytime something is unclear or unfamiliar.
 
 But what we actually did here is hide all extra content from ```#content``` and that's not exactly what we wanted.
 If you set 
-```css
 
-    #content { ... position:relative; top:0px}
+```css
+#content { ... position:relative; top:0px}
 ```
 
 and use firebug to manipulate ```top```, you should see how we got the scrolling effect, but no extra content is
@@ -118,19 +119,19 @@ Create a new .html file with same structure as above, but add another div, set i
 and place ```#content``` inside it. You structure should look like this:
 
 ```html
-    ...
-    <div clas="wrapper">
-      <div id="content>
-        ...
-      </div>
-    </div>
+...
+<div clas="wrapper">
+  <div id="content>
+  ...
+  </div>
+</div>
 ```
 
 add 
 
 ```css
-    .wrapper {width: 200px; height: 150px; overflow: hidden}
-    #content {width: 200px: height: 150px; position: relative; top: 0px}
+.wrapper {width: 200px; height: 150px; overflow: hidden}
+#content {width: 200px: height: 150px; position: relative; top: 0px}
 ```
 
 to .css file and open .html in web browser. Open Firebug and fiddle with ```top``` property. What do you see?
@@ -145,29 +146,29 @@ I'll be using [Module pattern](http://www.addyosmani.com/resources/essentialjsde
 to keep global namespace clear as possible (google this and get informed about it, don't polute global namespace):
 
 ```javascript
-    var myScrollbar = (function() {
-      //code
-    })();
+var myScrollbar = (function() {
+  //code
+})();
 ```
 
 We want to allow some kind of customization to our scrollbar (for example, you might want to specify width or colors), so we define ```_config``` variable to hold configuration information and ```start()``` function to initialize and allow
 passing object which properties (ones we defined in ```_config```) will be copied to ```_config```.
 
 ```javascript
-    var myScrollbar = (function() {
-      var _config = {};
+var myScrollbar = (function() {
+  var _config = {};
     
-      function start(config){
-        config = config || {};
-        _config.content    = config.content    || "content";
-      }
+  function start(config){
+    config = config || {};
+    _config.content    = config.content    || "content";
+  }
 
-      return {
-        start: start
-      }
-    })();
+  return {
+    start: start
+  }
+})();
 
-    myScrollbar.start();
+myScrollbar.start();
 ```
 
 Above, we define ```_config``` as an object and we pass ```config``` object to ```myScrollbar.start()``` function.
@@ -177,19 +178,19 @@ All these things inside function are keep 'private', we do not allow anyone to a
 object of properties we want public to see and use (public API). 
 
 ```javascript
-    var myScrollbar = (function() {
-        ...
+var myScrollbar = (function() {
+  ...
         
-        function getConfig() {
-          return _config;
-        }
-        
-        return {
-          start: start,
-          getConfig: getConfig
-        }
-    })();
-    ...
+  function getConfig() {
+    return _config;
+  }
+
+  return {
+   start: start,
+   getConfig: getConfig
+  }
+})();
+...
 ```
 
 So if we input ```console.log(myScrollbar.getConfig())``` into javascript console, we get a _config object.
@@ -201,28 +202,28 @@ DOM node. So if we implement this, .js file looks something like this:
 
 ```javascript
 
-    var myScrollbar = (function() {
-      var _config = {};
+var myScrollbar = (function() {
+  var _config = {};
 
-      function start(config){
-        config = config || {};
-        _config.content = config.content || "content";
+  function start(config){
+    config = config || {};
+    _config.content = config.content || "content";
 
-        //get nodes
-        _config.content = document.getElementById(_config.content);
-      }
+    //get nodes
+    _config.content = document.getElementById(_config.content);
+  }
 
-      function getConfig() {
-        return _config;
-      }
+  function getConfig() {
+    return _config;
+  }
 
-      return {
-        start: start,
-        getConfig: getConfig
-      }
-    })();
+  return {
+    start: start,
+    getConfig: getConfig
+  }
+})();
 
-    myScrollbar.start()
+myScrollbar.start()
 ```    
     
 If you enter ```console.log(myScrollbar.getConfig())``` into console, you see object, but this time instead of strings
@@ -232,23 +233,22 @@ If you remeber when we talked about idea of scrollbar, we need to construct a wr
 add scrollbar next to it.
 
 ```javascript
-    ...
-    function start(config){
-      config = config || {};
-      _config.content = config.content || "content";
+...
+function start(config){
+  config = config || {};
+  _config.content = config.content || "content";
   
-      //get node
-      _config.content = document.getElementById(_config.content);
+  //get node
+  _config.content = document.getElementById(_config.content);
   
-      //create wrapper and wrap around content
-      _config.wrapper = document.createElement("div");
-      _config.wrapper = _config.content.parentElement.insertBefore( _config.wrapper, 
-                                                                    _config.content);
-      _config.wrapper.appendChild(_config.content);
-      _config.wrapper.style.height = _config.content.offsetHeight + "px";
-      _config.wrapper.style.width  = (_config.content.offsetWidth + 10) + "px";
-
-      ...
+  //create wrapper and wrap around content
+  _config.wrapper = document.createElement("div");
+  _config.wrapper = _config.content.parentElement.insertBefore( _config.wrapper, 
+                                                                _config.content);
+  _config.wrapper.appendChild(_config.content);
+  _config.wrapper.style.height = _config.content.offsetHeight + "px";
+  _config.wrapper.style.width  = (_config.content.offsetWidth + 10) + "px";
+...
 ```
 
 We create a new element and then insert it before ```_config.content```. After that we move ```_config.content```
@@ -259,18 +259,18 @@ Good practice would be to add another option to config: scrollbar_width. Also, a
 all we need is scrollbar!
 
 ```javascript
-    ...
-    //create scrollbar wrapper
-    _config.scrollbarW = document.createElement("div");
-    _config.scrollbarW = _config.wrapper.appendChild(_config.scrollbarW);
-    _config.scrollbarW.className = "scrollbar_wrapper";
+...
+//create scrollbar wrapper
+_config.scrollbarW = document.createElement("div");
+_config.scrollbarW = _config.wrapper.appendChild(_config.scrollbarW);
+_config.scrollbarW.className = "scrollbar_wrapper";
     
 
-    //create scrollbar
-    _config.scrollbar  = document.createElement("div");
-    _config.scrollbar  = _config.scrollbarW.appendChild(_config.scrollbar);
-    _config.scrollbar.className = "scrollbar";
-    ...
+//create scrollbar
+_config.scrollbar  = document.createElement("div");
+_config.scrollbar  = _config.scrollbarW.appendChild(_config.scrollbar);
+_config.scrollbar.className = "scrollbar";
+...
 ```    
     
 First we create empty div, append it to ``_config.wrapper``` and then we add class name to it. That's our
@@ -280,7 +280,7 @@ Next step, we want our scrollbar to look like a scrollbar (currently it's just l
 so we assign some css properties to ```.scrollbar_wrapper```
 
 ```css
-    .scrollbar_wrapper {background: green; width: 10px; height: 100%;}
+.scrollbar_wrapper {background: green; width: 10px; height: 100%;}
 ```
 
 ```background: green``` is there so we can see what are we doing.```height: 100%``` is because we want to move
@@ -290,8 +290,8 @@ As you can see on your screen, we have a wrapper for scrollbar, except it's not 
 with ```float```)
 
 ```css
-    #content           {... float:left;}
-    .scrollbar_wrapper {... float:right;}
+#content           {... float:left;}
+.scrollbar_wrapper {... float:right;}
 ```
 
 Refresh and there you are, basic structure is here! 
@@ -300,14 +300,14 @@ I'm going to use ```size of wrapper * 1/3```  for scrollbar size because it look
 To do this, we add at the end of our ```start()``` function:
 
 ```javascript
-    //set size of scrollbar
-    _config.scrollbar.style.height = (_config.wrapper.offsetHeight * 1/3) + "px";
+//set size of scrollbar
+_config.scrollbar.style.height = (_config.wrapper.offsetHeight * 1/3) + "px";
 ```
 
 and we add
 
 ```css
-    .scrollbar         {background: black; position: relative}
+.scrollbar         {background: black; position: relative}
 ```
 
 to .css file so we can see what is happening and ```position: relative``` is because we want to use ```top```
@@ -333,27 +333,27 @@ you do not see, and that is total content, scrolable content - visible content o
 ```_config.wrapper.scrollHeight - _config.scrollbarW.offsetHeight```. If we combine these two we get.
 
 ```javascript
-    //for each pixel movement on scrollbar we have to move _config.ratio pixels in content
-    _config.ratio = ((_config.wrapper.scrollHeight - _config.scrollbarW.offsetHeight) 
-                     / (_config.scrollbarW.offsetHeight - _config.scrollbar.offsetHeight));
+//for each pixel movement on scrollbar we have to move _config.ratio pixels in content
+_config.ratio = ((_config.wrapper.scrollHeight - _config.scrollbarW.offsetHeight) 
+                 / (_config.scrollbarW.offsetHeight - _config.scrollbar.offsetHeight));
 ```                     
     
 For for one pixel movement in scrollbar we move by ```_config.ratio``` pixels in content.
 Moving on:
 
 ```javascript
-    //define events
-    _config.scrollbar.events = {
-      "mousedown":  enableMoving,
-      "mousemove":  moveContent,
-      "mouseup":    stopMoving,
-      "mouseleave": stopMoving
-    };
+//define events
+_config.scrollbar.events = {
+  "mousedown":  enableMoving,
+  "mousemove":  moveContent,
+  "mouseup":    stopMoving,
+  "mouseleave": stopMoving
+};
 
-    //bind them
-    for (var value in _config.scrollbar.events) {
-      _config.scrollbar.addEventListener(value, _config.scrollbar.events[value], false);
-    }
+//bind them
+for (var value in _config.scrollbar.events) {
+  _config.scrollbar.addEventListener(value, _config.scrollbar.events[value], false);
+}
 ```
 
 Nothing special here, object is defined holding events and functions and using ```for...in``` we bind them to scrollbar.
@@ -363,55 +363,54 @@ mouse we want to stop moving. It makes sense?
 Now it's time to move out of our start() functions, so here is now all code combined: 
 
 ```javascript
-    function start(config) {
+function start(config) {
     
-      config = config || {};
-      //parse config properties
-      _config.content = config.content || "content";
+  config = config || {};
+  //parse config properties
+  _config.content = config.content || "content";
     
-      //get node
-      _config.content = document.getElementById(_config.content);
+  //get node
+  _config.content = document.getElementById(_config.content);
       
-      //create wrapper and wrap around content
-      _config.wrapper = document.createElement("div");
-      _config.wrapper = _config.content.parentElement.insertBefore( _config.wrapper, 
+  //create wrapper and wrap around content
+  _config.wrapper = document.createElement("div");
+  _config.wrapper = _config.content.parentElement.insertBefore( _config.wrapper, 
                                                                     _config.content);
-      _config.wrapper.appendChild(_config.content);
-      _config.wrapper.style.height = _config.content.offsetHeight + "px";
-      _config.wrapper.style.width  = (_config.content.offsetWidth + 10) + "px";
-      _config.wrapper.className    = "myScrollbar_wrapper";
+  _config.wrapper.appendChild(_config.content);
+  _config.wrapper.style.height = _config.content.offsetHeight + "px";
+  _config.wrapper.style.width  = (_config.content.offsetWidth + 10) + "px";
+  _config.wrapper.className    = "myScrollbar_wrapper";
     
-      //create scrollbar wrapper
-      _config.scrollbarW = document.createElement("div");
-      _config.scrollbarW = _config.wrapper.appendChild(_config.scrollbarW);
-      _config.scrollbarW.className = "scrollbar_wrapper";
+  //create scrollbar wrapper
+  _config.scrollbarW = document.createElement("div");
+  _config.scrollbarW = _config.wrapper.appendChild(_config.scrollbarW);
+  _config.scrollbarW.className = "scrollbar_wrapper";
+ 
+  //create scrollbar
+  _config.scrollbar  = document.createElement("div");
+  _config.scrollbar  = _config.scrollbarW.appendChild(_config.scrollbar);
+  _config.scrollbar.className = "scrollbar";
     
-      //create scrollbar
-      _config.scrollbar  = document.createElement("div");
-      _config.scrollbar  = _config.scrollbarW.appendChild(_config.scrollbar);
-      _config.scrollbar.className = "scrollbar";
-    
-      //set size of scrollbar
-      _config.scrollbar.style.height = (_config.wrapper.offsetHeight * 1/3) + "px";
-    
-      //for each pixel movement on scrollbar we have to move _config.ratio pixels in content
-      _config.ratio = ((_config.wrapper.scrollHeight - _config.scrollbarW.offsetHeight) 
-                       / (_config.scrollbarW.offsetHeight - _config.scrollbar.offsetHeight));
-      
-      //define events
-      _config.scrollbar.events = {
-        "mousedown":  enableMoving,
-        "mousemove":  moveContent,
-        "mouseup":    stopMoving,
-        "mouseleave": stopMoving
-      };
+  //set size of scrollbar
+  _config.scrollbar.style.height = (_config.wrapper.offsetHeight * 1/3) + "px";
   
-      //bind them
-      for (var value in _config.scrollbar.events) {
-        _config.scrollbar.addEventListener(value, _config.scrollbar.events[value], false);
-      }
-
-    }
+  //for each pixel movement on scrollbar we have to move _config.ratio pixels in content
+  _config.ratio = ((_config.wrapper.scrollHeight - _config.scrollbarW.offsetHeight) 
+                   / (_config.scrollbarW.offsetHeight - _config.scrollbar.offsetHeight));
+     
+  //define events
+  _config.scrollbar.events = {
+    "mousedown":  enableMoving,
+    "mousemove":  moveContent,
+    "mouseup":    stopMoving,
+    "mouseleave": stopMoving
+  };
+ 
+  //bind them
+  for (var value in _config.scrollbar.events) {
+    _config.scrollbar.addEventListener(value, _config.scrollbar.events[value], false);
+  }
+}
 ```
 
 Let's move on to enableMoving function. How are we going to enable moving? We want to know if object is "movable" and
@@ -423,35 +422,35 @@ a way to find this is ```(e.clientY - e.layerY + _config.scrollbar.offsetHeight 
 Next time use that position to starDrag. Now we will allways drag scrollbar by middle.
 
 ```javascript
-    function enableMoving(e) {
-      e.preventDefault();
-      _config.scrollbar.className = "scrollbar draggable";
-      _config.scrollbar.startDrag =
-        _config.scrollbar.startDrag || (e.clientY - e.layerY + _config.scrollbar.offsetHeight * 1/2);
-    }
+function enableMoving(e) {
+  e.preventDefault();
+  _config.scrollbar.className = "scrollbar draggable";
+  _config.scrollbar.startDrag =
+    _config.scrollbar.startDrag || (e.clientY - e.layerY + _config.scrollbar.offsetHeight * 1/2);
+}
 ```
   
 Stop moving does similar thig. It removes "draggable" from scrollbar.
 
 ```javascript
-    function stopMoving(e) {
-      _config.scrollbar.className = "scrollbar";
-    }
+function stopMoving(e) {
+  _config.scrollbar.className = "scrollbar";
+}
 ```    
     
 Finaly, the moveContent function. This one moves content and displays visual indicator (scrollbar) where we are.
 
 ```javascript
-    function moveContent(e) {
-      e.preventDefault();
-      //if content is draggabke
-      if (_config.scrollbar.className === "scrollbar draggable") {
-        _config.scrollbar.top =  (e.clientY - _config.scrollbar.startDrag);
-  
-        _config.scrollbar.style.top = _config.scrollbar.top + "px";
-        _config.content.style.top = -(_config.scrollbar.top * _config.ratio) + "px";
-      }
-    }
+function moveContent(e) {
+  e.preventDefault();
+  //if content is draggabke
+  if (_config.scrollbar.className === "scrollbar draggable") {
+    _config.scrollbar.top =  (e.clientY - _config.scrollbar.startDrag);
+
+    _config.scrollbar.style.top = _config.scrollbar.top + "px";
+    _config.content.style.top = -(_config.scrollbar.top * _config.ratio) + "px";
+  }
+}
 ```  
 
 we only allow change if content is draggable. Next we calculate movement of scrollbar, which is starting position -
@@ -461,23 +460,25 @@ Great, we have a scrollbar! And it's moving content, but you can move it outside
 We really don't want to allow that. There is an easy way to do this.
 
 ```javascript
-    function moveContent(e) {
-      e.preventDefault();
-      if (_config.scrollbar.className === "scrollbar draggable") {
-        _config.scrollbar.top =  (e.clientY - _config.scrollbar.startDrag);
-  
-        //if we move to far to top
-        if (_config.scrollbar.top < 0) {
-          _config.scrollbar.top = 0;
-        }
-        //if we move to far to bottom
-        else if (_config.scrollbar.top > _config.scrollbarW.offsetHeight - _config.scrollbar.offsetHeight){
-          _config.scrollbar.top = _config.scrollbarW.offsetHeight - _config.scrollbar.offsetHeight;
-        }
-  
-        _config.scrollbar.style.top = _config.scrollbar.top + "px";
-        _config.content.style.top = -(_config.scrollbar.top * _config.ratio) + "px";
-      }
+
+function moveContent(e) {
+  e.preventDefault();
+  if (_config.scrollbar.className === "scrollbar draggable") {
+    _config.scrollbar.top =  (e.clientY - _config.scrollbar.startDrag);
+
+    //if we move to far to top
+    if (_config.scrollbar.top < 0) {
+      _config.scrollbar.top = 0;
+    }
+    //if we move to far to bottom
+    else if (_config.scrollbar.top > _config.scrollbarW.offsetHeight - _config.scrollbar.offsetHeight){
+      _config.scrollbar.top = _config.scrollbarW.offsetHeight - _config.scrollbar.offsetHeight;
+    }
+
+    _config.scrollbar.style.top = _config.scrollbar.top + "px";
+    _config.content.style.top = -(_config.scrollbar.top * _config.ratio) + "px";
+  }
+}
 ```
     
 In first if statement, we simply check if ```_config.scrollbar.top``` is bellow zero. If it is, it means we moved
