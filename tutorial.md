@@ -2,20 +2,7 @@
 # Javascript scrollbar
 
 
-## Introduction 
-
-TEXT
-
 ## Idea
-
-
-Good reason for using a scrollbar is: We have a small area in which we want to display a lot of content.
-Take your web browser as example, you have a screen, where you can see only a fixed amount of pixels.
-If web page has more content then you can see on your screen, a scrollbar is added and you can easily see everyhing
-else.
-
-If you move this idea to a webpage, there are certain aspects of web page that you want to behave in a similar way:
-Maybe you want a place for latest tweets, notifications or short news. **BETTER AND MORE EXAPLES + GOOD EXPLANATION**
 
 If you think about scrollbars, there are actually two things important: Scrollbar itself, and content.
 When we move n pixels in scrollbar we want to move k pixels in content (usually k > n). So how do we
@@ -49,7 +36,7 @@ you have Webkit inspector and on Opera Dragonfly. On IE you can go and download 
 cover any developer tools here, but if you aren't familiar with them, google ```Webkit inspector/Firebug/Dragonfly tutorial``` and I'm sure you will find something!
 
 Lets begin by defining basic html structure:
-
+```html
     <!DOCTYPE html>
     <html>
     <head>
@@ -63,10 +50,10 @@ Lets begin by defining basic html structure:
     <script type="application/javascript" src="scrollbar.js"></script>
     </body>
     </html>
-
-HTML is pretty self explanatory. ```#content``` holds scrollable data. Nothing else is needed.
-When we add data to ```#content```:
-
+```
+HTML is pretty self explanatory. ```css #content``` holds scrollable data. Nothing else is needed.
+When we add data to ```css #content``` (insert as many ```html <li>``` as you want:
+```html
     ...
     <div id="content">
       <ol>
@@ -77,31 +64,8 @@ When we add data to ```#content```:
         <li>element</li>
         <li>element</li>
         <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
-        <li>element</li>
+        ...
+        ...
         <li>element</li>
         <li>element</li>
         <li>element</li>
@@ -115,8 +79,8 @@ When we add data to ```#content```:
       </ol>
     </div>
     ...
-
-we can see that ```#content``` extends and we really do not want that (we want it scrollable, right?).
+```
+we can see that ```css #content``` extends and we really do not want that (we want it scrollable, right?).
 We can achieve that by adding: 
 
     #content {width: 200px; height: 150px; overflow: scroll;}
