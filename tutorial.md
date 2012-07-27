@@ -22,11 +22,12 @@ So structure you have looks something like this
 Where S is scrollbar, w is the wrapper and c is the content. 
 We "need" wrapper to "glue" these two things together. I say "need" with quotation marks because we don't
 actually need it, but it's much easier with it. 
-I'm going to use ```#this_notiation``` to mark an element with id of ```this_notitation``` and ```.this_notation```
-to mark an element with class of ```this_notation```.
-So how do I make ```#content``` not display any extra
-content? We use ```overflow: hidden``` on wrapper. But if I hide overflow, how can I display it again? You set
-```position: relative``` and use ```top``` on ```#content``` to manipulate what you see.
+
+So how do we make content scrollable?? First you need to define boundaries of content box, if there are no
+boundaries, we cannot know how much content is extra. Extra content is needed; if everything fits
+into content box, there is no need for scrollbar.
+
+Then we need to hide content, set position to relative and manipulat top property!
 Everyhing will be explained if you keep reading on!
 
 ## Structure
@@ -34,6 +35,9 @@ Everyhing will be explained if you keep reading on!
 First things first, if you are using Firefox get [Firebug](http://getfirebug.com/), on Chromium/Chrome
 you have Webkit inspector and on Opera Dragonfly. On IE you can go and download another browser. I'm not going to
 cover any developer tools here, but if you aren't familiar with them, google ```Webkit inspector/Firebug/Dragonfly tutorial``` and I'm sure you will find something!
+
+I'm going to use ```#this_notiation``` to mark an element with id of ```this_notitation``` and ```.this_notation```
+to mark an element with class of ```this_notation```.
 
 Lets begin by defining basic html structure:
 
@@ -52,8 +56,10 @@ Lets begin by defining basic html structure:
 </body>
 </html>
 ```
+
 HTML is pretty self explanatory. ```#content``` holds scrollable data. Nothing else is needed.
-When we add data to ```#content``` (insert as many `<li> as you want:
+When we add data to ```#content``` (insert as many ```li``` tags as you want:
+
 ```html
 ...
 <div id="content">
@@ -81,6 +87,7 @@ When we add data to ```#content``` (insert as many `<li> as you want:
 </div>
 ...
 ```
+
 we can see that ```#content``` extends and we really do not want that (we want it scrollable, right?).
 We can achieve that by adding: 
 
@@ -92,7 +99,7 @@ but that's not exactly what we wanted. Hiding extra content (and we want to hide
 scrollbar) can be done with
 
 ```css
-#content { ... overflow: hidden;}
+#content {... overflow: hidden;}
 ```
 
 ```width``` and ```height``` are css properties which specify width and height of the content area of an element.
@@ -103,19 +110,23 @@ which means don't do anything to content, display it outside the box if box is t
 ([CSS Reference - MDN](https://developer.mozilla.org/en/DOM/CSS)), so make sure you open that and visit it
 everytime something is unclear or unfamiliar. 
 
-But what we actually did here is hide all extra content from ```#content``` and that's not exactly what we wanted.
-If you set 
+What we did here is hide all extra content from ```#content```.
+Set
 
 ```css
 #content { ... position:relative; top:0px}
 ```
 
 and use firebug to manipulate ```top```, you should see how we got the scrolling effect, but no extra content is
-displayed. That is because we clipped extra content from ```#content```. If you look back at picture, we could 
-(and we will) set ```overflow: hidden``` on wrapper and achieve same result, but extra content will be shown.
-**Clarify**
+displayed. Again, [position - MDN](https://developer.mozilla.org/en/CSS/position). That is because we clipped extra content from ```#content```. We actually said do not display any
+extra content just crop it, but at the same time we want to display it. This is where wrapper fits it. We wrap content
+and we set ```overflow: hidden``` to wrapper. This won't affect ```#content``` in any way, allow is to show
+extra content and achieve scrolling.
+Try to remove```overflow: hidden``` from ```#content```  and use manipulate ```top``` property. 
+Viola! Scrolling effect!
 
-Create a new .html file with same structure as above, but add another div, set its class name to "wrapper" 
+Or if you have to see it to believe it,
+create a new .html file with same structure as above, but add another div, set its class name to "wrapper" 
 and place ```#content``` inside it. You structure should look like this:
 
 ```html
@@ -136,8 +147,8 @@ add
 
 to .css file and open .html in web browser. Open Firebug and fiddle with ```top``` property. What do you see?
 Exactly what you need. This is how our scrollbar will work, manipulatig ```top``` to change what part of
-```#content``` you see and wee need to add visual representation!
-Again, [position - MDN](https://developer.mozilla.org/en/CSS/position).
+```#content``` you see! 
+
 
 ## Javascript
 
