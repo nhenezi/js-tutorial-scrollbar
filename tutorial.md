@@ -152,7 +152,7 @@ Exactly what you need. This is how our scrollbar will work, manipulatig ```top``
 
 ## Javascript
 
-Yay! Get back to old .html file (one without wrapper).
+Yay! Get back to old .html file (one without wrapper). Before going any further, bookmakark [Javascript - MDN](https://developer.mozilla.org/en/JavaScript) and when in doubt visit it!
 I'll be using [Module pattern](http://www.addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript) ([Another explanation by Ben Cherry](http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth))
 to keep global namespace clear as possible (google this and get informed about it, don't polute global namespace):
 
@@ -207,7 +207,7 @@ var myScrollbar = (function() {
 So if we input ```console.log(myScrollbar.getConfig())``` into javascript console, we get a _config object.
 
 
-We don't really need names of these elements, what we need is DOM nodes. So let's get them! There is
+We don't really need names of these elements, what we need is DOM nodes. So lets get them! There is
 ```document.getElementById()``` function which does exactly that. You give string as parameter and you get
 DOM node. So if we implement this, .js file looks something like this:
 
@@ -306,7 +306,7 @@ with ```float```)
 ```
 
 Refresh and there you are, basic structure is here! 
-So only thing that isn't in position right now is our scrollbar, so let's position it!
+So only thing that isn't in position right now is our scrollbar, so lets position it!
 I'm going to use ```size of wrapper * 1/3```  for scrollbar size because it looks nice. 
 To do this, we add at the end of our ```start()``` function:
 
@@ -321,7 +321,7 @@ and we add
 .scrollbar         {background: black; position: relative}
 ```
 
-to .css file so we can see what is happening and ```position: relative``` is because we want to use ```top```
+to .css file so we can see what is happening. ```position: relative``` is because we want to use ```top```
 to change scrollbar position (once again, use firebug to manipulate ```top``` property and see what is happening).
 You should see black scrollbar! Now something about ```style``` property. ```_config.scrollbar.style``` is 
 an object holding all css style properties of ```_config.scrollbar``` node.
@@ -341,7 +341,7 @@ You are moving it for ```.scrollbar_wrapper - scrollbar``` width. Think about it
 you should understand.
 Next problem is you aren't acually moving for whole width of content, you are moving only for content
 you do not see, and that is total content, scrolable content - visible content or 
-```_config.wrapper.scrollHeight - _config.scrollbarW.offsetHeight```. If we combine these two we get.
+```_config.wrapper.scrollHeight - _config.scrollbarW.offsetHeight```. If we combine these two we get:.
 
 ```javascript
 //for each pixel movement on scrollbar we have to move _config.ratio pixels in content
@@ -367,9 +367,10 @@ for (var value in _config.scrollbar.events) {
 }
 ```
 
-Nothing special here, object is defined holding events and functions and using ```for...in``` we bind them to scrollbar.
+Nothing special here, object is defined holding events and functions and using ```for...in``` we bind them 
+on specific events to to scrollbar.
 When we click down with a mouse we want to enable moving of scrollbar with moving of the mouse, and whe we release
-mouse we want to stop moving. It makes sense?
+mouse we want to stop moving (I've added mouseleave event for simplicity, you don't want actually this). It makes sense?
 
 Now it's time to move out of our start() functions, so here is now all code combined: 
 
@@ -424,13 +425,13 @@ function start(config) {
 }
 ```
 
-Let's move on to enableMoving function. How are we going to enable moving? We want to know if object is "movable" and
+Let's move on to enableMoving function. How are we going to enable moving? We want to know if object is "draggable" and
 we are going to add class "draggable" to that object. Right now, scrollbar is our object so we add "draggable"
 class to scrollbar.
-We have to find middle of scrollbar (because don't want users to be able to grad scrollbar by edge) and
+We have to find middle of scrollbar (because we don't want users to be able to grad scrollbar by edge) and
 a way to find this is ```(e.clientY - e.layerY + _config.scrollbar.offsetHeight * 1/2)```. Take a pencil and draw this.
 ```e.clientY - e.layerY``` is top edge of scrollbar, and we add half size of scrollbar so we have position of the middle. 
-Next time use that position to starDrag. Now we will allways drag scrollbar by middle.
+Now we will allways drag scrollbar by middle.
 
 ```javascript
 function enableMoving(e) {
@@ -454,7 +455,7 @@ Finaly, the moveContent function. This one moves content and displays visual ind
 ```javascript
 function moveContent(e) {
   e.preventDefault();
-  //if content is draggabke
+  //if content is draggable
   if (_config.scrollbar.className === "scrollbar draggable") {
     _config.scrollbar.top =  (e.clientY - _config.scrollbar.startDrag);
 
@@ -465,10 +466,10 @@ function moveContent(e) {
 ```  
 
 we only allow change if content is draggable. Next we calculate movement of scrollbar, which is starting position -
-amount we moved in vertical direction. We assign visual representation of that movement and we move content by
-that amount multiplied by ratio. Try to remove ratio and see how scrollbar behaves.
+amount we moved in vertical direction. We assign visual representation of that movement (scrollbar moves)
+and we move content by that amount multiplied by ratio. Try to remove ratio and see how scrollbar behaves.
 Great, we have a scrollbar! And it's moving content, but you can move it outside of ```.scrollbar_wrapper```.
-We really don't want to allow that. There is an easy way to do this.
+We really don't want to allow that. There is an easy way to fix this.
 
 ```javascript
 
@@ -494,5 +495,5 @@ function moveContent(e) {
     
 In first if statement, we simply check if ```_config.scrollbar.top``` is bellow zero. If it is, it means we moved
 it to much in positive direction (by positive i mean up, north, top). Bottom limit is a little harder to calculate, 
-it's size of ```.scrollbar_wrapper``` size of ```.scrollbar```. Draw it and think about it 
+it's size of ```.scrollbar_wrapper``` minus size of ```.scrollbar```. Draw it and think about it 
 (we used this in calculating movement ratio).
