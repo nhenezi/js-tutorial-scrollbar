@@ -114,7 +114,7 @@ What we did here is hide all extra content from ```#content```.
 Set
 
 ```css
-#content { ... position:relative; top:0px}
+#content {... position:relative; top:0px;}
 ```
 
 and use firebug to manipulate ```top```, you should see how we got the scrolling effect, but no extra content is
@@ -141,8 +141,8 @@ and place ```#content``` inside it. You structure should look like this:
 add 
 
 ```css
-.wrapper {width: 200px; height: 150px; overflow: hidden}
-#content {width: 200px: height: 150px; position: relative; top: 0px}
+.wrapper {width: 200px; height: 150px; overflow: hidden;}
+#content {width: 200px: height: 150px; position: relative; top: 0px;}
 ```
 
 to .css file and open .html in web browser. Open Firebug and fiddle with ```top``` property. What do you see?
@@ -318,7 +318,7 @@ _config.scrollbar.style.height = (_config.wrapper.offsetHeight * 1/3) + "px";
 and we add
 
 ```css
-.scrollbar         {background: black; position: relative}
+.scrollbar         {background: black; position: relative;}
 ```
 
 to .css file so we can see what is happening. ```position: relative``` is because we want to use ```top```
