@@ -497,3 +497,12 @@ In first if statement, we simply check if ```_config.scrollbar.top``` is bellow 
 it to much in positive direction (by positive i mean up, north, top). Bottom limit is a little harder to calculate, 
 it's size of ```.scrollbar_wrapper``` minus size of ```.scrollbar```. Draw it and think about it 
 (we used this in calculating movement ratio).
+
+# Where to go from here?
+
+Now you know how to create basic scrollbar. Couple of things you could add:
+* Add some effects (fadein, fadeout)
+* Stylize it a little bit more
+* Make it more user friendly (add clickable arrows, scrolling with mousewheel, etc.)
+
+You could even create horizontal scrollbar!
