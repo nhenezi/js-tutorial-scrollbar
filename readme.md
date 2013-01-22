@@ -7,7 +7,7 @@ without any external libraries. There is thoroughly commented code supplemented 
 
 # Tutorial, You say?
 
-Yes, click on tutorial.md and pretty detailed tutorial should popup. It assumes basic knowledge of
+Yes, click on [tutorial.md](https://github.com/nhenezi/js-tutorial-scrollbar/blob/master/tutorial.md) and pretty detailed tutorial should popup. It assumes basic knowledge of
 html, css and javascript, but external links are provided for detailed explanation of most elements
 encountered in it.
 
